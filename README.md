@@ -1,6 +1,5 @@
-# Crio Code-A-Thon Project: Expense Tracker
+# Expense Tracker
 
-![Screenshot of App](./src/assets/mainScreenshot.png)
 
 ## The App
 
@@ -23,11 +22,4 @@ Features:
 `CSS`
 `REACT JS`
 
-## NPM library used to built charts
-
-`Recharts`
-
-
-- <a href="https://expense-tracker-psi-ten.vercel.app/" target="_blank">Click here for demo</a>
-
-**Had fun building!** 🚀
+## -Abhik Chakraborty
