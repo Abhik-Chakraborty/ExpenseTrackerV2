@@ -5,18 +5,18 @@ import "./Card.css"
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 
-const Card = props => {
-    //props
-    const { text, value} = props;
+const Card = ({ text, value, type }) => {
     //states
     const [modalOn, setModalOn] = useState(false);
     //functions
     const toggleModal = () => setModalOn(!modalOn);
 
+    const displayText = type === "balance" ? "Wallet Balance" : text;
+
     return (
         <div className='card'>
             <span className='cardText'>
-                <span>{text}: </span> 
+                <span>{displayText}: </span> 
                 <span className={text === "Expenses" ? "cardTextRed" : "cardTextGreen"}>
                     ₹{value}
                 </span>
@@ -24,15 +24,15 @@ const Card = props => {
             <Button 
                 text={text === "Expenses" ? "+ Add Expense" : "+ Add Income"}
                 background={text === "Expenses" ? "gradientRed" : "gradientGreen"}
-                buttonSize = "largeButton"
+                buttonSize="largeButton"
                 clickFunction={toggleModal}
             />
             {modalOn ? 
                 <Modal 
-                toggleModal={toggleModal} 
-                text={text === "Expenses" ? "Add Expense" : "Add Balance"}/> 
-            :null
-            }
+                    toggleModal={toggleModal} 
+                    text={text === "Expenses" ? "Add Expense" : "Add Balance"}
+                /> 
+            : null}
         </div>
     );
 };
