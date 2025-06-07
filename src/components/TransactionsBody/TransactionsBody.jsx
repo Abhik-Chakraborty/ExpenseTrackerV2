@@ -11,50 +11,61 @@ const TransactionsBody = () => {
     //contexts
     const [transactionData, setTransactionData] = useContext(TransactionsContext);
     //states
-    const [pages, setPages] = useState({ currentPage: 1, totalPages: 1 })
+    const [pages, setPages] = useState({ currentPage: 1, totalPages: 1 });
+
     //everytime transactionData updates
-    useEffect(()=> {
+    useEffect(() => {
         onLoad();
-    }, [transactionData])
+    }, [transactionData]);
+
     //functions
     const displayTransactions = () => {
-        let key = 0;
-        if(transactionData && transactionData.length){
-            let arr =[];
-            let startIndex = 5 * (pages.currentPage - 1)
-            let endIndex = (5 * pages.currentPage) - 1
+        if (!transactionData || !transactionData.length) return null;
 
-            for(let i = startIndex; i <= endIndex; i++){
-                if(i >= transactionData.length) break;
-                const { name, date, price, category, id } = transactionData[i];
-                arr.push(
-                    <TransactionBar key={`${key++}`} name={name} date={date} amount={price} category={category} id={id}/>
-                )
-            }
+        const startIndex = 5 * (pages.currentPage - 1);
+        const endIndex = Math.min(5 * pages.currentPage - 1, transactionData.length - 1);
 
-            return arr;
-        }
-    }
-    const onLoad = () =>{
-        setPages({ currentPage: 1, totalPages: Math.ceil(transactionData.length / 5) })
-    }
+        return transactionData
+            .slice(startIndex, endIndex + 1)
+            .map((transaction, index) => {
+                const { title, date, price, category, id } = transaction;
+                return (
+                    <TransactionBar 
+                        key={id || index}
+                        name={title}
+                        date={date}
+                        amount={price}
+                        category={category}
+                        id={id}
+                    />
+                );
+            });
+    };
+
+    const onLoad = () => {
+        setPages({
+            currentPage: 1,
+            totalPages: Math.ceil((transactionData?.length || 0) / 5)
+        });
+    };
     
     const updatePage = direction => {
-        let {currentPage, totalPages} = pages;
-        if(direction === "right" && currentPage < totalPages){
-            setPages({...pages, currentPage: currentPage+1})
+        const { currentPage, totalPages } = pages;
+        if (direction === "right" && currentPage < totalPages) {
+            setPages(prev => ({ ...prev, currentPage: prev.currentPage + 1 }));
         }
-        if(direction === "left" && currentPage > 1){
-            setPages({...pages, currentPage: currentPage-1})
+        if (direction === "left" && currentPage > 1) {
+            setPages(prev => ({ ...prev, currentPage: prev.currentPage - 1 }));
         }
-    }
+    };
+
     return (
         <div className='TransactionBody'>
             <div className='transactionBodyUpper'>
                 <div className='transactionPage'>{displayTransactions()}</div>
             </div>
             <div className='transactionBodylower'>
-                <PageNavigateBar key={"pageNavigate"} pages={pages} updatePage={updatePage} />
+                <PageNavigateBar key="pageNavigate" pages={pages} updatePage={updatePage} />
             </div>
         </div>
     );
