@@ -1,0 +1,63 @@
+header{
+    background-color: #636362;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 3rem;
+}
+
+.AppHead{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.wallet-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 850px) and (max-width: 929px) {
+    header{
+        flex-wrap: wrap-reverse;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+}
+@media screen and (max-width: 849px) {
+    header{
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 1rem;
+    }
+    .card{
+        width: 100%;
+    }
+}
+
+/* large screens */
+@media screen and (min-width: 929px) {
+    header{
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+/* screens bigger than mobile */
+@media screen and (min-width: 780px) {
+    .AppHead{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .wallet-section {
+        flex: 1;
+    }
+}
