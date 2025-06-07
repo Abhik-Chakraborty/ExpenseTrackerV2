@@ -26,7 +26,6 @@ const ModalForm = props => {
     const [balanceFormData, setBalanceFormData] = useState({income: ""});
     //functions
     const updateFormDataWithExistingData = () => {
-        console.log(existingData)
         const {name, date, amount, category} = existingData;
         setFormData({
             name: name,

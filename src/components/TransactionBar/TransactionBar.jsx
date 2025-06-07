@@ -45,7 +45,7 @@ const TransactionBar = props => {
     return (
         <div className='TransactionBar'>
             <span className='transactionIcon'>
-                <img src={selectIcon()}/>
+                <img src={selectIcon()} alt={`${category} icon`}/>
             </span>
             <span className='TransactionBarBody'>
                 <span className='TransactionText'>
