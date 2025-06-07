@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 //styles
 import './App.css';
 //components
@@ -16,41 +16,30 @@ function App() {
     expenses: 1200
   })
   const [transactionData, setTransactionData] = useState(dummyData);
-  const initialRender = useRef(true);
 
-  useEffect(()=>{
-    if(initialRender.current)  onLoad();
-
-    return(() => {
-      initialRender.current = false;
-    })
-  }, [])
-
-  useEffect(()=> {
-    //save data to local storage and if it is initial render skip saving
-    if(!initialRender.current) localStorage.setItem("allData", JSON.stringify({money, transactionData}));
-  }, [money, transactionData])
-
-  //functions
-  const onLoad = () => {
-    //load data from local storage if present
+  useEffect(() => {
+    // Load data from local storage on initial render
     const localData = localStorage.getItem("allData");
-    if(localData){
-      const {money, transactionData} = JSON.parse(localData);
-      setMoney(money);
-      setTransactionData(transactionData);
+    if (localData) {
+      const { money: savedMoney, transactionData: savedTransactions } = JSON.parse(localData);
+      setMoney(savedMoney);
+      setTransactionData(savedTransactions);
     }
-  }
-  
+  }, []);
+
+  useEffect(() => {
+    // Save data to local storage whenever money or transactionData changes
+    localStorage.setItem("allData", JSON.stringify({ money, transactionData }));
+  }, [money, transactionData]);
 
   return (
     <main className='App'>
       <MoneyContext.Provider value={[money, setMoney]}>
-      <TransactionsContext.Provider value={[transactionData, setTransactionData]}>
-        <Navbar />
-        <AppHead balance={money.balance} expenses={money.expenses}/>
-        <AppBody transactionData={transactionData}/>
-      </TransactionsContext.Provider> 
+        <TransactionsContext.Provider value={[transactionData, setTransactionData]}>
+          <Navbar />
+          <AppHead balance={money.balance} expenses={money.expenses}/>
+          <AppBody />
+        </TransactionsContext.Provider> 
       </MoneyContext.Provider>
     </main>
   )
