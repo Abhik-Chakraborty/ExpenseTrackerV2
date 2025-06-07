@@ -26,6 +26,7 @@ const ModalForm = props => {
     const [balanceFormData, setBalanceFormData] = useState({income: ""});
     //functions
     const updateFormDataWithExistingData = () => {
+        console.log(existingData)
         const {name, date, amount, category} = existingData;
         setFormData({
             name: name,
@@ -112,8 +113,6 @@ const ModalForm = props => {
                     <option value="food">Food</option>
                     <option value="entertainment">Entertainment</option>
                     <option value="travel">Travel</option>
-                    <option value="rent">Rent</option>
-                    <option value="other">Other</option>
                 </select>
                 <input 
                 required

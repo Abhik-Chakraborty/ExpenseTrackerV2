@@ -28,8 +28,6 @@ const TransactionBar = props => {
         if(category === "food") return foodIcon;
         if(category === "entertainment") return movieIcon;
         if(category === "travel") return travelIcon;
-        if(category === "rent") return travelIcon; // Using travel icon for rent temporarily
-        if(category === "other") return movieIcon; // Using movie icon for other temporarily
     }
     const deleteTransaction = () => {
         const indexOfTransaction = transactionData.findIndex(item => id === item.id);
@@ -45,7 +43,7 @@ const TransactionBar = props => {
     return (
         <div className='TransactionBar'>
             <span className='transactionIcon'>
-                <img src={selectIcon()} alt={`${category} icon`}/>
+                <img src={selectIcon()}/>
             </span>
             <span className='TransactionBarBody'>
                 <span className='TransactionText'>
