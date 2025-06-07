@@ -13,7 +13,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
     
     //states
     const [formData, setFormData] = useState({
-        title: "",
+        name: "",
         price: "",
         date: new Date().toISOString().split("T")[0],
         category: "",
@@ -23,9 +23,9 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
     //check for existing data to update transaction
     useEffect(() => {
         if (existingData) {
-            const { title, date, amount, category } = existingData;
+            const { name, date, amount, category } = existingData;
             setFormData({
-                title: title,
+                name: name,
                 price: amount,
                 date: date,
                 category: category
@@ -58,8 +58,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             const newTransaction = {
                 ...formData,
                 id: Date.now(),
-                type: "expense",
-                amount: formData.price
+                type: "expense"
             };
 
             setMoney({ balance: newBalance, expenses: newExpense });
@@ -76,8 +75,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             const updatedTransaction = {
                 ...formData,
                 id: existingData.id,
-                type: "expense",
-                amount: formData.price
+                type: "expense"
             };
 
             setMoney({ balance: newBalance, expenses: newExpense });
@@ -95,12 +93,12 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
         <div className='formInputsDiv'>
             <input 
                 required
-                value={formData.title}
+                value={formData.name}
                 className="formInput" 
                 onChange={handleChange} 
                 placeholder='Title' 
                 type='text' 
-                name='title'
+                name='name'
                 autoFocus
             />
             <input 

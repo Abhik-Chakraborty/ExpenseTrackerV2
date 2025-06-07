@@ -28,11 +28,11 @@ const TransactionsBody = () => {
         return transactionData
             .slice(startIndex, endIndex + 1)
             .map((transaction, index) => {
-                const { title, date, price, category, id } = transaction;
+                const { name, date, price, category, id } = transaction;
                 return (
                     <TransactionBar 
                         key={id || index}
-                        name={title}
+                        name={name}
                         date={date}
                         amount={price}
                         category={category}
