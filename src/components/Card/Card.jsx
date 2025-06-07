@@ -12,28 +12,28 @@ const Card = ({ text, value, type }) => {
     const toggleModal = () => setModalOn(!modalOn);
 
     const displayText = type === "balance" ? "Wallet Balance" : text;
-    const displayValue = type === "balance" ? value : value;
+    const displayValue = value;
 
     return (
         <div className='card'>
-            <span className='cardText'>
+            <div className='cardText'>
                 <span>{displayText}: </span> 
                 <span className={text === "Expenses" ? "cardTextRed" : "cardTextGreen"}>
                     ₹{displayValue}
                 </span>
-            </span>
+            </div>
             <Button 
                 text={text === "Expenses" ? "+ Add Expense" : "+ Add Income"}
                 background={text === "Expenses" ? "gradientRed" : "gradientGreen"}
                 buttonSize="largeButton"
                 clickFunction={toggleModal}
             />
-            {modalOn ? 
+            {modalOn && (
                 <Modal 
                     toggleModal={toggleModal} 
                     text={text === "Expenses" ? "Add Expense" : "Add Balance"}
-                /> 
-            : null}
+                />
+            )}
         </div>
     );
 };
