@@ -19,20 +19,20 @@ function App() {
 
   useEffect(() => {
     // Load data from local storage on initial render
-    const localData = localStorage.getItem("allData");
+    const localData = localStorage.getItem("expenses");
     if (localData) {
       const { money: savedMoney, transactionData: savedTransactions } = JSON.parse(localData);
       setMoney(savedMoney);
       setTransactionData(savedTransactions);
     } else {
       // If no data, initialize localStorage with default state
-      localStorage.setItem("allData", JSON.stringify({ money, transactionData }));
+      localStorage.setItem("expenses", JSON.stringify({ money, transactionData }));
     }
   }, []);
 
   useEffect(() => {
     // Save data to local storage whenever money or transactionData changes
-    localStorage.setItem("allData", JSON.stringify({ money, transactionData }));
+    localStorage.setItem("expenses", JSON.stringify({ money, transactionData }));
   }, [money, transactionData]);
 
   return (
