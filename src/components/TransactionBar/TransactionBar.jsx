@@ -12,7 +12,7 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { MoneyContext, TransactionsContext } from '../../Contexts/AllContexts';
 
-const TransactionBar = ({ name, date, price, category, id }) => {
+const TransactionBar = ({ title, date, price, category, id }) => {
     //contexts
     const [money, setMoney] = useContext(MoneyContext);
     const [transactionData, setTransactionData] = useContext(TransactionsContext);
@@ -52,7 +52,7 @@ const TransactionBar = ({ name, date, price, category, id }) => {
             </span>
             <span className='TransactionBarBody'>
                 <span className='TransactionText'>
-                    <span className='TransactionName'>{name}</span>
+                    <span className='TransactionName'>{title}</span>
                     <span className='TransactionDate'>{date}</span>
                 </span>
                 <span className={`TransactionAmount ${category === "income" ? "cardTextGreen" : "cardTextRed"}`}>₹{price}</span>
@@ -75,7 +75,7 @@ const TransactionBar = ({ name, date, price, category, id }) => {
                         <Modal 
                             toggleModal={toggleModal} 
                             text="Edit Expense"
-                            existingData={{ name, date, price, category, id }}
+                            existingData={{ title, date, price, category, id }}
                         />
                     )}
                 </>

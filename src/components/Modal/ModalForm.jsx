@@ -13,7 +13,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
     
     //states
     const [formData, setFormData] = useState({
-        name: "",
+        title: "",
         price: "",
         date: new Date().toISOString().split("T")[0],
         category: "",
@@ -23,9 +23,9 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
     //check for existing data to update transaction
     useEffect(() => {
         if (existingData) {
-            const { name, date, price, category } = existingData;
+            const { title, date, price, category } = existingData;
             setFormData({
-                name: name,
+                title: title,
                 price: price,
                 date: date,
                 category: category
@@ -49,7 +49,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             // Add income as a transaction
             const newTransaction = {
                 id: Date.now(),
-                name: "Income",
+                title: "Income",
                 price: Number(balanceFormData.income),
                 date: new Date().toISOString().split("T")[0],
                 category: "income",
@@ -105,12 +105,12 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
         <div className='formInputsDiv'>
             <input 
                 required
-                value={formData.name}
+                value={formData.title}
                 className="formInput" 
                 onChange={handleChange} 
                 placeholder='Title' 
                 type='text' 
-                name='name'
+                name='title'
                 autoFocus
             />
             <input 
