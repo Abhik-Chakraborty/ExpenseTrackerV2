@@ -56,6 +56,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
                 type: "income"
             };
             setTransactionData(prev => [...prev, newTransaction]);
+            setBalanceFormData({ income: "" });
         } else if (formType === "Add Expense") {
             const newExpense = money.expenses + Number(formData.price);
             const newBalance = money.balance - Number(formData.price);
@@ -74,6 +75,12 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
 
             setMoney({ balance: newBalance, expenses: newExpense });
             setTransactionData(prev => [...prev, newTransaction]);
+            setFormData({
+                title: "",
+                price: "",
+                date: new Date().toISOString().split("T")[0],
+                category: "",
+            });
         } else if (formType === "Edit Expense") {
             const newExpense = money.expenses + Number(formData.price) - Number(existingData.amount ?? existingData.price);
             const newBalance = money.balance - Number(formData.price) + Number(existingData.amount ?? existingData.price);
