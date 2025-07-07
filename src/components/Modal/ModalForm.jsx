@@ -55,7 +55,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
                 category: "income",
                 type: "income"
             };
-            setTransactionData(prev => [...prev, newTransaction]);
+            setTransactionData(prev => [newTransaction, ...prev]);
             setBalanceFormData({ income: "" });
         } else if (formType === "Add Expense") {
             const newExpense = money.expenses + Number(formData.price);
@@ -74,7 +74,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             };
 
             setMoney({ balance: newBalance, expenses: newExpense });
-            setTransactionData(prev => [...prev, newTransaction]);
+            setTransactionData(prev => [newTransaction, ...prev]);
             setFormData({
                 title: "",
                 price: "",
