@@ -24,6 +24,9 @@ function App() {
       const { money: savedMoney, transactionData: savedTransactions } = JSON.parse(localData);
       setMoney(savedMoney);
       setTransactionData(savedTransactions);
+    } else {
+      // If no data, initialize localStorage with default state
+      localStorage.setItem("allData", JSON.stringify({ money, transactionData }));
     }
   }, []);
 
