@@ -34,7 +34,7 @@ const TransactionsBody = () => {
                         key={id || index}
                         name={name}
                         date={date}
-                        amount={price}
+                        price={price}
                         category={category}
                         id={id}
                     />

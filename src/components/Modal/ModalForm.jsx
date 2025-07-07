@@ -23,10 +23,10 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
     //check for existing data to update transaction
     useEffect(() => {
         if (existingData) {
-            const { name, date, amount, category } = existingData;
+            const { name, date, price, category } = existingData;
             setFormData({
                 name: name,
-                price: amount,
+                price: price,
                 date: date,
                 category: category
             });
@@ -46,6 +46,16 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
                 ...prev,
                 balance: prev.balance + Number(balanceFormData.income)
             }));
+            // Add income as a transaction
+            const newTransaction = {
+                id: Date.now(),
+                name: "Income",
+                price: Number(balanceFormData.income),
+                date: new Date().toISOString().split("T")[0],
+                category: "income",
+                type: "income"
+            };
+            setTransactionData(prev => [...prev, newTransaction]);
         } else if (formType === "Add Expense") {
             const newExpense = money.expenses + Number(formData.price);
             const newBalance = money.balance - Number(formData.price);
@@ -58,14 +68,15 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             const newTransaction = {
                 ...formData,
                 id: Date.now(),
+                price: Number(formData.price),
                 type: "expense"
             };
 
             setMoney({ balance: newBalance, expenses: newExpense });
             setTransactionData(prev => [...prev, newTransaction]);
         } else if (formType === "Edit Expense") {
-            const newExpense = money.expenses + Number(formData.price) - Number(existingData.amount);
-            const newBalance = money.balance - Number(formData.price) + Number(existingData.amount);
+            const newExpense = money.expenses + Number(formData.price) - Number(existingData.amount ?? existingData.price);
+            const newBalance = money.balance - Number(formData.price) + Number(existingData.amount ?? existingData.price);
 
             if (newBalance < 0) {
                 alert("Insufficient balance");
@@ -75,6 +86,7 @@ const ModalForm = ({ toggleModal, formType, existingData }) => {
             const updatedTransaction = {
                 ...formData,
                 id: existingData.id,
+                price: Number(formData.price),
                 type: "expense"
             };
 
